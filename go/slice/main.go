@@ -28,6 +28,7 @@ func main() {
 	for _, d := range ds {
 
 		// for range ループの value は常に同じアドレス値を取るため、再代入することで回避する
+		// see: https://github.com/golang/go/wiki/CommonMistakes#using-reference-to-loop-iterator-variable
 		d := d
 		dd = append(dd, &d)
 	}
