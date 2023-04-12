@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="fileInput">
+  <button id="uploadButton">アップロード</button>
+</body>
+<body>
+
+<script>
+  // 画像ファイルのバイナリを見て、ファイル種別チェックする
+  function inspectImageType(bytes) {
+    if (
+      bytes[0] === 0xff &&
+      bytes[1] === 0xd8 &&
+      bytes[bytes.length - 2] === 0xff &&
+      bytes[bytes.length - 1] === 0xd9
+    ) {
+      return 'jpg';
+    } else if (
+      bytes[0] === 0x89 &&
+      bytes[1] === 0x50 &&
+      bytes[2] === 0x4e &&
+      bytes[3] === 0x47
+    ) {
+      return 'png';
+    } else if (
+      bytes[0] === 0x47 &&
+      bytes[1] === 0x49 &&
+      bytes[2] === 0x46 &&
+      bytes[3] === 0x38
+    ) {
+      return 'gif';
+    } else if (
+      bytes[0] === 0x52 &&
+      bytes[1] === 0x49 &&
+      bytes[2] === 0x46 &&
+      bytes[3] === 0x46
+    ) {
+      return 'webp';
+    } else {
+      return 'unknown';
+    }
+  };
+
+  const fileInput = document.getElementById("fileInput");
+  const uploadButton = document.getElementById("uploadButton");
+
+  uploadButton.addEventListener("click", () => {
+    const file = fileInput.files[0];
+    if (!file) {
+      console.error("ファイルが選択されていません。");
+      return;
+    }
+
+    const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log("ファイルが読み込まれました。");
+      const bytes = new Uint8Array(reader.result);
+      const type = inspectImageType(bytes);
+    };
+    reader.readAsArrayBuffer(file)
+    reader.onerror = () => {
+      console.error("ファイルの読み込みに失敗しました。");
+    };
+  });
+</script>
+
