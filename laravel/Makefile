@@ -1,4 +1,6 @@
 up:
+	cd laradock && docker-compose up -d nginx mysql workspace
+build:
 	cd laradock && docker-compose up --build -d nginx mysql workspace
 remake:
 	@make destroy
