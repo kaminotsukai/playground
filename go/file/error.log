@@ -1,0 +1,5 @@
+[NULL @ 0x7fb8317051c0] Invalid NAL unit size (377919 > 76195).
+[NULL @ 0x7fb8317051c0] missing picture in access unit with size 76205
+[h264 @ 0x7fb83179fc40] Invalid NAL unit size (377919 > 76195).
+[h264 @ 0x7fb83179fc40] Error splitting the input into NAL units.
+Error while decoding stream #0:0: Invalid data found when processing input
